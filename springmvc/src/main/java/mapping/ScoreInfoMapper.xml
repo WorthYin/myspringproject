@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.ScoreInfoMapper" >
+  <resultMap id="BaseResultMap" type="model.ScoreInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="score" property="score" jdbcType="REAL" />
+    <result column="unumber" property="unumber" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, score, unumber, cname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from score
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from score
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="model.ScoreInfo" >
+    insert into score (id, score, unumber, 
+      cname)
+    values (#{id,jdbcType=BIGINT}, #{score,jdbcType=REAL}, #{unumber,jdbcType=VARCHAR}, 
+      #{cname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.ScoreInfo" >
+    insert into score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="unumber != null" >
+        unumber,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=REAL},
+      </if>
+      <if test="unumber != null" >
+        #{unumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="model.ScoreInfo" >
+    update score
+    <set >
+      <if test="score != null" >
+        score = #{score,jdbcType=REAL},
+      </if>
+      <if test="unumber != null" >
+        unumber = #{unumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.ScoreInfo" >
+    update score
+    set score = #{score,jdbcType=REAL},
+      unumber = #{unumber,jdbcType=VARCHAR},
+      cname = #{cname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from score
+  </select>
+</mapper>
